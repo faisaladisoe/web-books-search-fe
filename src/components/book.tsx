@@ -1,5 +1,11 @@
 
-export default function BookForm({ id, title, onAdd }) {
+interface Form {
+  id: string;
+  title: string;
+  onAdd: any;
+}
+
+export default function BookForm({ id, title, onAdd }:Form) {
   const handleAddClick = () => {
     if (title.trim() !== '') {
       onAdd({

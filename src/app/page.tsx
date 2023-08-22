@@ -2,7 +2,6 @@
 'use client';
 import apiHandler from "@/api/searchHandler";
 import BookForm from "@/components/book";
-import Wishlist from "@/components/wishlist";
 import { Button, Rating } from "@mui/material";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
@@ -18,11 +17,22 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
+export interface Book {
+  id: string;
+  title: string;
+}
+
+interface Books {
+  items: any[];
+  kind: string;
+  totalItems: number;
+}
+
 export default function Home() {
   const [query, setQuery] = useState("One Up on Wall Street");
-  const [books, setBooks] = useState(null);
+  const [books, setBooks] = useState<Books>();
   const [loading, setLoading] = useState(false);
-  const [wishlist, setWishlist] = useState([]);
+  const [wishlist, setWishlist] = useState<Book[]>([]);
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -33,7 +43,6 @@ export default function Home() {
     if (reason === 'clickaway') {
       return;
     }
-
     setOpen(false);
   };
 
@@ -44,7 +53,7 @@ export default function Home() {
     }
   }, []);
 
-  const addToWishlist = (bookTitle) => {
+  const addToWishlist = (bookTitle: Book) => {
     const updatedWishlist = [...wishlist, bookTitle];
     setWishlist(updatedWishlist);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
@@ -59,7 +68,7 @@ export default function Home() {
     try {
       let title = query.replace(/ /g, "+");
       setLoading(true);
-      const { data } = await apiHandler(title);
+      const data = await apiHandler(title);
       setBooks(data);
       setLoading(false);
     } catch (error) {
@@ -95,7 +104,7 @@ export default function Home() {
           defaultValue={query}
           onChange={(e) => {
             setQuery(e.target.value);
-            setBooks(null);
+            setBooks(undefined);
           }}
         />
 

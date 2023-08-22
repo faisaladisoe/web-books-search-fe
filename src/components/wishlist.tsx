@@ -8,8 +8,14 @@ import Collapse from '@mui/material/Collapse';
 import React from "react";
 import { useState } from 'react';
 import AbcIcon from '@mui/icons-material/Abc';
+import { Book } from "@/app/page";
 
-export default function Wishlist({ books, clearWishlist }) {
+interface Wishlist {
+  books: Book[];
+  clearWishlist: any;
+}
+
+export default function Wishlist({ books, clearWishlist }:Wishlist) {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {

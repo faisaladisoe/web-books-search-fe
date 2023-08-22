@@ -4,9 +4,10 @@ import Link from 'next/link';
 import Wishlist from "@/components/wishlist";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { Button } from '@mui/material';
+import { Book } from '../page';
 
 export default function WishlistPage() {
-  const [wishlist, setWishlist] = useState([]);
+  const [wishlist, setWishlist] = useState<Book[]>([]);
 
   useEffect(() => {
     const savedWishlist = localStorage.getItem('wishlist');

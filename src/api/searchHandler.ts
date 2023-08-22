@@ -7,8 +7,8 @@ export default async function apiHandler(title: string) {
   };
   try {
     const response = await axios(options);
-    return response;
+    return response.data;
   } catch (error) {
-    console.error(error.response);
+    console.error(error);
   }
 }
