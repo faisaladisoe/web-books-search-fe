@@ -29,7 +29,7 @@ interface Books {
 }
 
 export default function Home() {
-  const [query, setQuery] = useState("One Up on Wall Street");
+  const [query, setQuery] = useState("");
   const [books, setBooks] = useState<Books>();
   const [loading, setLoading] = useState(false);
   const [wishlist, setWishlist] = useState<Book[]>([]);
